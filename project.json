@@ -1,0 +1,26 @@
+{
+  "overview": "Campus Connect is a mobile-style web app for students to access campus services — order food from the campus food court, print documents at the book mart, book event seats, track orders and queue positions, and manage their profile. Features 11 polished screens with a blue/green theme and static demo data throughout.",
+  "features": [
+    "Splash screen with loading animation",
+    "Student and Vendor login with card-style UI",
+    "Student dashboard with service navigation cards",
+    "Food Court with add-to-cart, availability badges, and floating cart",
+    "Cart with quantity controls and real-time price total",
+    "Order confirmation with QR code placeholder and pickup time",
+    "Book Mart with file upload mock, print options, and price estimator",
+    "Event Booking with seat grid selection",
+    "Notifications list with order and event alerts",
+    "Queue Status with position and wait time indicator",
+    "Profile with order history and logout"
+  ],
+  "category": "productivity",
+  "tags": [
+    "campus",
+    "student",
+    "food-ordering",
+    "event-booking",
+    "mobile-ui",
+    "dashboard"
+  ],
+  "last_updated": "2026-04-13T17:36:53.112Z"
+}

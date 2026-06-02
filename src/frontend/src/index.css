@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "General Sans", "DM Sans", sans-serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --radius: 0.75rem;
+
+    --background: 0.97 0.008 220;
+    --foreground: 0.18 0.03 240;
+    --card: 1 0 0;
+    --card-foreground: 0.18 0.03 240;
+    --popover: 1 0 0;
+    --popover-foreground: 0.18 0.03 240;
+
+    --primary: 0.42 0.13 198;
+    --primary-foreground: 0.99 0.005 0;
+
+    --secondary: 0.54 0.15 155;
+    --secondary-foreground: 0.99 0.005 0;
+    --muted: 0.93 0.01 220;
+    --muted-foreground: 0.52 0.025 240;
+
+    --accent: 0.56 0.18 142;
+    --accent-foreground: 0.99 0.005 0;
+
+    --destructive: 0.54 0.22 25;
+    --destructive-foreground: 0.99 0.005 0;
+
+    --border: 0.91 0.015 220;
+    --input: 0.91 0.015 220;
+    --ring: 0.42 0.13 198;
+
+    --chart-1: 0.42 0.13 198;
+    --chart-2: 0.54 0.15 155;
+    --chart-3: 0.65 0.18 142;
+    --chart-4: 0.48 0.16 28;
+    --chart-5: 0.7 0.12 56;
+
+    --sidebar: 0.99 0.008 220;
+    --sidebar-foreground: 0.18 0.03 240;
+    --sidebar-primary: 0.42 0.13 198;
+    --sidebar-primary-foreground: 0.99 0.005 0;
+    --sidebar-accent: 0.93 0.01 220;
+    --sidebar-accent-foreground: 0.42 0.13 198;
+    --sidebar-border: 0.91 0.015 220;
+    --sidebar-ring: 0.42 0.13 198;
+  }
+
+  .dark {
+    --background: 0.12 0.01 240;
+    --foreground: 0.96 0.01 0;
+    --card: 0.16 0.01 240;
+    --card-foreground: 0.96 0.01 0;
+    --popover: 0.18 0.01 240;
+    --popover-foreground: 0.96 0.01 0;
+
+    --primary: 0.68 0.16 198;
+    --primary-foreground: 0.12 0.01 240;
+
+    --secondary: 0.62 0.18 155;
+    --secondary-foreground: 0.96 0.01 0;
+    --muted: 0.22 0.02 240;
+    --muted-foreground: 0.7 0.02 240;
+
+    --accent: 0.65 0.2 142;
+    --accent-foreground: 0.12 0.01 240;
+
+    --destructive: 0.65 0.21 25;
+    --destructive-foreground: 0.96 0.01 0;
+
+    --border: 0.28 0.02 240;
+    --input: 0.22 0.02 240;
+    --ring: 0.68 0.16 198;
+
+    --chart-1: 0.68 0.16 198;
+    --chart-2: 0.62 0.18 155;
+    --chart-3: 0.7 0.2 142;
+    --chart-4: 0.58 0.18 28;
+    --chart-5: 0.78 0.14 56;
+
+    --sidebar: 0.16 0.01 240;
+    --sidebar-foreground: 0.96 0.01 0;
+    --sidebar-primary: 0.68 0.16 198;
+    --sidebar-primary-foreground: 0.12 0.01 240;
+    --sidebar-accent: 0.22 0.02 240;
+    --sidebar-accent-foreground: 0.68 0.16 198;
+    --sidebar-border: 0.28 0.02 240;
+    --sidebar-ring: 0.68 0.16 198;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .shadow-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-elevated {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .float-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .pulse-soft {
+    animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .gradient-primary {
+    background: linear-gradient(
+      135deg,
+      oklch(0.42 0.13 198),
+      oklch(0.54 0.15 155)
+    );
+  }
+
+  .gradient-hero {
+    background: linear-gradient(
+      160deg,
+      oklch(0.35 0.14 198) 0%,
+      oklch(0.42 0.13 198) 40%,
+      oklch(0.5 0.15 175) 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-animation,
+  .animate-float {
+    animation: none !important;
+  }
+
+  .pulse-soft,
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+
+  .animate-slide-up {
+    animation: none !important;
+  }
+}
