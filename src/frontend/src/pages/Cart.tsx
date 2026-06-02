@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/ui/CampusButton";
 import { Card } from "../components/ui/CampusCard";
 import { PageHeader } from "../components/ui/PageHeader";
@@ -15,6 +15,13 @@ export default function Cart() {
   const { items, totalItems, totalPrice, updateQuantity, clearCart } =
     useCart();
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
+  useEffect(() => {
+    if (orderPlaced) {
+      navigate({ to: "/order-confirmation" });
+    }
+  }, [orderPlaced, navigate]);
 
   const hasFood = items.some((i) => !i.foodItem.isStationery);
   const hasStationery = items.some((i) => i.foodItem.isStationery);
@@ -37,7 +44,6 @@ export default function Cart() {
       // Fetch dynamic user profile name from Firestore users collection
       let userName = "Alex Kumar";
       try {
-        const { getDoc, doc } = await import("firebase/firestore");
         const docSnap = await getDoc(doc(db, "users", auth.currentUser.uid));
         if (docSnap.exists() && docSnap.data().name) {
           userName = docSnap.data().name;
@@ -114,7 +120,7 @@ export default function Cart() {
       );
 
       clearCart();
-      navigate({ to: "/order-confirmation" });
+      setOrderPlaced(true);
     } catch (error) {
       console.error("Error placing order:", error);
       alert("Failed to place order. Please try again.");
