@@ -45,16 +45,6 @@ const statusOrder = ["queued", "preparing", "ready"];
 
 export default function QueueStatus() {
   const { orders } = useOrders();
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!api) return;
-    setCurrent(api.selectedScrollSnap());
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
 
   // Filter orders for the logged-in student that are not completed
   const userActiveOrders = orders.filter(
@@ -76,29 +66,7 @@ export default function QueueStatus() {
     <div className="flex flex-col min-h-screen bg-gray-50 pb-10">
       <PageHeader title="Queue Status" back backTo="/dashboard" />
 
-      {/* Slide indicators for multiple orders */}
-      {userActiveOrders.length > 1 && (
-        <div className="flex items-center justify-between px-5 py-3 bg-white border-b border-border shadow-xs">
-          <span className="text-xs font-extrabold text-primary bg-primary/10 px-2.5 py-1 rounded-full">
-            Active Orders ({userActiveOrders.length})
-          </span>
-          <div className="flex gap-1.5">
-            {userActiveOrders.map((order, idx) => (
-              <button
-                key={order.id}
-                type="button"
-                onClick={() => api?.scrollTo(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  current === idx ? "bg-primary w-4" : "bg-slate-300"
-                }`}
-                aria-label={`Go to order ${idx + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      <Carousel setApi={setApi} className="flex-1 w-full overflow-hidden">
+      <Carousel className="flex-1 w-full overflow-hidden">
         <CarouselContent className="h-full">
           {userActiveOrders.map((userOrder) => {
             const mappedStatus =
