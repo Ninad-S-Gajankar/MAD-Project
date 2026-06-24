@@ -64,6 +64,7 @@ export interface OrderHistory {
   items: { name: string; quantity: number; price: number }[];
   total: number;
   status: "delivered" | "cancelled" | "pending";
+  orderNumber?: string;
 }
 
 export interface UserProfile {

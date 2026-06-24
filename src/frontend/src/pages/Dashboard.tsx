@@ -14,18 +14,18 @@ import {
   Bell,
   BookOpen,
   CalendarDays,
+  ClipboardList,
   MapPin,
   Search,
   UserCircle2,
   UtensilsCrossed,
-  ClipboardList,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Badge } from "../components/ui/CampusBadge";
 import { Card } from "../components/ui/CampusCard";
 import { useOrders } from "../context/OrdersContext";
+import { events, foodItems, stationeryItems } from "../data";
 import { useCart } from "../hooks/useCart";
-import { foodItems, stationeryItems, events } from "../data";
 import { auth, db } from "../lib/firebase";
 import type { Notification } from "../types";
 
@@ -78,39 +78,48 @@ export default function Dashboard() {
   const searchResults: any[] = [];
   if (searchQuery.trim().length > 0) {
     const q = searchQuery.toLowerCase();
-    
-    foodItems.forEach(item => {
-      if (item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q)) {
+
+    foodItems.forEach((item) => {
+      if (
+        item.name.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q)
+      ) {
         searchResults.push({
           id: item.id,
           name: item.name,
           type: "food",
           route: `/food-court?search=${encodeURIComponent(item.name)}`,
-          subtitle: `Food Court • ₹${item.price}`
+          subtitle: `Food Court • ₹${item.price}`,
         });
       }
     });
 
-    stationeryItems.forEach(item => {
-      if (item.name.toLowerCase().includes(q) || item.description.toLowerCase().includes(q)) {
+    stationeryItems.forEach((item) => {
+      if (
+        item.name.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q)
+      ) {
         searchResults.push({
           id: item.id,
           name: item.name,
           type: "stationery",
           route: `/book-mart?search=${encodeURIComponent(item.name)}`,
-          subtitle: `Book Mart • ₹${item.price}`
+          subtitle: `Book Mart • ₹${item.price}`,
         });
       }
     });
 
-    events.forEach(item => {
-      if (item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q)) {
+    events.forEach((item) => {
+      if (
+        item.title.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q)
+      ) {
         searchResults.push({
           id: item.id,
           name: item.title,
           type: "event",
           route: `/event-booking?search=${encodeURIComponent(item.title)}`,
-          subtitle: `Event Booking • ${item.date}`
+          subtitle: `Event Booking • ${item.date}`,
         });
       }
     });
@@ -139,7 +148,9 @@ export default function Dashboard() {
               const docSnap = await getDoc(docRef);
               if (!docSnap.exists()) {
                 await setDoc(docRef, item);
-                console.log(`Auto-seeded missing stationery item: ${item.name}`);
+                console.log(
+                  `Auto-seeded missing stationery item: ${item.name}`,
+                );
               }
             }
 
@@ -264,8 +275,8 @@ export default function Dashboard() {
           {showResults && searchQuery.trim().length > 0 && (
             <>
               {/* Overlay dismiss */}
-              <div 
-                className="fixed inset-0 z-10" 
+              <div
+                className="fixed inset-0 z-10"
                 onClick={() => setShowResults(false)}
               />
               <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-xl shadow-elevated z-20 max-h-60 overflow-y-auto divide-y divide-border">
@@ -281,8 +292,12 @@ export default function Dashboard() {
                       }}
                       className="w-full px-4 py-3 flex flex-col items-start hover:bg-muted/50 transition-smooth text-left"
                     >
-                      <p className="text-sm font-bold text-foreground">{res.name}</p>
-                      <p className="text-[11px] text-muted-foreground">{res.subtitle}</p>
+                      <p className="text-sm font-bold text-foreground">
+                        {res.name}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground">
+                        {res.subtitle}
+                      </p>
                     </button>
                   ))
                 ) : (
@@ -362,10 +377,16 @@ export default function Dashboard() {
                       const idx = serviceActiveOrders.findIndex(
                         (o) => o.id === latestActiveOrder.id,
                       );
-                      const pos =
+                      let pos =
                         idx !== -1
                           ? serviceActiveOrders.length - idx
                           : serviceActiveOrders.length;
+
+                      // Scale position to range 1-10
+                      pos = Math.max(
+                        1,
+                        Math.min(10, pos > 10 ? pos % 10 || 10 : pos),
+                      );
 
                       if (latestActiveOrder.status === "ready") {
                         return "Ready for pickup! 🎉";

@@ -59,21 +59,39 @@ export default function QueueStatus() {
   const mappedStatus =
     userOrder.status === "pending" ? "queued" : userOrder.status;
 
+  let rawPosition = activeOrders.findIndex((o) => o.id === userOrder.id) + 1;
+  if (rawPosition === 1 && activeOrders.length > 1) {
+    rawPosition = activeOrders.length;
+  }
+
+  // Scale position to range 1-10
+  const position = Math.max(
+    1,
+    Math.min(10, rawPosition > 10 ? rawPosition % 10 || 10 : rawPosition),
+  );
+
+  // Map position 1-10 to 5-15 minutes estimated wait time
+  const estimatedMinutes = 5 + Math.round((position - 1) * (10 / 9));
+
+  // Scale total in queue consistently with position (up to 10)
+  const totalInQueue = Math.max(
+    position,
+    Math.min(
+      10,
+      activeOrders.length > 10
+        ? (activeOrders.length % 5) + 10
+        : activeOrders.length,
+    ),
+  );
+
   const status = {
     orderId: userOrder.orderNumber,
-    position: activeOrders.findIndex((o) => o.id === userOrder.id) + 1, // Usually you are behind older orders. If list is newest-first, you are position 1?
-    // Wait, if it's newest first, we are index 0, so position 1 (which means next). Actually if you're newest, you should be last.
-    // Let's just make position = activeOrders.length for the newest order.
-    totalInQueue: activeOrders.length,
-    estimatedMinutes: activeOrders.length * 4,
+    position,
+    totalInQueue,
+    estimatedMinutes,
     status: mappedStatus as "queued" | "preparing" | "ready",
     itemName: userOrder.items.map((i) => i.name).join(", "),
   };
-
-  if (status.position === 1 && activeOrders.length > 1) {
-    // Fix: if we are at index 0 (newest), our position should be totalInQueue
-    status.position = activeOrders.length;
-  }
 
   const config = statusConfig[status.status];
   const currentStepIndex = statusOrder.indexOf(status.status);
