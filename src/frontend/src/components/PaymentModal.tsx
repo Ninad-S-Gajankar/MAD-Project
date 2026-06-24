@@ -31,7 +31,7 @@ export function PaymentModal({
   const [cardExpiry, setCardExpiry] = useState("");
   const [cardCvv, setCardCvv] = useState("");
   const [selectedBank, setSelectedBank] = useState("");
-  
+
   // Validation errors
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -78,7 +78,7 @@ export function PaymentModal({
       if (cleanCard.length !== 16 || !/^\d+$/.test(cleanCard)) {
         newErrors.cardNumber = "Enter a valid 16-digit card number";
       }
-      
+
       if (!cardExpiry.includes("/")) {
         newErrors.cardExpiry = "Expiry date is required (MM/YY)";
       } else {
@@ -126,7 +126,7 @@ export function PaymentModal({
     setProcessingStep("Opening secure Razorpay portal...");
 
     const options = {
-      key: "rzp_test_Sum2e7duEe7noS",
+      key: "rzp_test_SwpeFo3M2LnrNY",
       amount: amount * 100, // Amount in paise (1 INR = 100 paise)
       currency: "INR",
       name: "Campus Connect",
@@ -171,7 +171,7 @@ export function PaymentModal({
 
   return (
     <div className="fixed inset-0 bg-black/60 z-[150] flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
-      <div 
+      <div
         className="bg-card w-full max-w-md rounded-3xl overflow-hidden shadow-2xl relative border border-border animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
@@ -224,11 +224,10 @@ export function PaymentModal({
                       setMethod(m.id);
                       setErrors({});
                     }}
-                    className={`flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border transition-all duration-200 ${
-                      isSelected
-                        ? "bg-green-600/10 border-green-600 text-green-600 font-semibold"
-                        : "bg-muted/30 border-border text-muted-foreground hover:border-muted-foreground/30 hover:bg-muted/50"
-                    }`}
+                    className={`flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border transition-all duration-200 ${isSelected
+                      ? "bg-green-600/10 border-green-600 text-green-600 font-semibold"
+                      : "bg-muted/30 border-border text-muted-foreground hover:border-muted-foreground/30 hover:bg-muted/50"
+                      }`}
                   >
                     <IconComp size={20} />
                     <span className="text-xs">{m.label}</span>
@@ -252,9 +251,8 @@ export function PaymentModal({
                         placeholder="username@upi"
                         value={upiId}
                         onChange={(e) => setUpiId(e.target.value)}
-                        className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth pr-10 ${
-                          errors.upiId ? "border-destructive focus:ring-destructive/40" : "border-border"
-                        }`}
+                        className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth pr-10 ${errors.upiId ? "border-destructive focus:ring-destructive/40" : "border-border"
+                          }`}
                       />
                       <QrCode size={18} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                     </div>
@@ -294,9 +292,8 @@ export function PaymentModal({
                       placeholder="1234 5678 9101 1121"
                       value={cardNumber}
                       onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                      className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth font-mono tracking-wide ${
-                        errors.cardNumber ? "border-destructive focus:ring-destructive/40" : "border-border"
-                      }`}
+                      className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth font-mono tracking-wide ${errors.cardNumber ? "border-destructive focus:ring-destructive/40" : "border-border"
+                        }`}
                     />
                     {errors.cardNumber && (
                       <p className="text-[11px] text-destructive">{errors.cardNumber}</p>
@@ -316,9 +313,8 @@ export function PaymentModal({
                         placeholder="MM/YY"
                         value={cardExpiry}
                         onChange={(e) => setCardExpiry(formatExpiry(e.target.value))}
-                        className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth text-center font-mono ${
-                          errors.cardExpiry ? "border-destructive focus:ring-destructive/40" : "border-border"
-                        }`}
+                        className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth text-center font-mono ${errors.cardExpiry ? "border-destructive focus:ring-destructive/40" : "border-border"
+                          }`}
                       />
                       {errors.cardExpiry && (
                         <p className="text-[11px] text-destructive">{errors.cardExpiry}</p>
@@ -335,9 +331,8 @@ export function PaymentModal({
                         placeholder="***"
                         value={cardCvv}
                         onChange={(e) => setCardCvv(e.target.value.replace(/[^0-9]/g, ""))}
-                        className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth text-center font-mono ${
-                          errors.cardCvv ? "border-destructive focus:ring-destructive/40" : "border-border"
-                        }`}
+                        className={`w-full px-3 py-2.5 bg-input border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-smooth text-center font-mono ${errors.cardCvv ? "border-destructive focus:ring-destructive/40" : "border-border"
+                          }`}
                       />
                       {errors.cardCvv && (
                         <p className="text-[11px] text-destructive">{errors.cardCvv}</p>
@@ -359,11 +354,10 @@ export function PaymentModal({
                           setSelectedBank(b.id);
                           setErrors({});
                         }}
-                        className={`flex items-center gap-2 p-2.5 border rounded-xl text-xs font-medium transition-smooth ${
-                          selectedBank === b.id
-                            ? "bg-green-600/10 border-green-600 text-green-600 font-bold"
-                            : "bg-muted/10 border-border hover:bg-muted text-muted-foreground hover:text-foreground"
-                        }`}
+                        className={`flex items-center gap-2 p-2.5 border rounded-xl text-xs font-medium transition-smooth ${selectedBank === b.id
+                          ? "bg-green-600/10 border-green-600 text-green-600 font-bold"
+                          : "bg-muted/10 border-border hover:bg-muted text-muted-foreground hover:text-foreground"
+                          }`}
                       >
                         <span className="text-base">{b.logo}</span>
                         <span>{b.name}</span>

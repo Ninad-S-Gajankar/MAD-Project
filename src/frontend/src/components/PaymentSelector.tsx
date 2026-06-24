@@ -93,7 +93,7 @@ export function PaymentSelector({
       return;
     }
     const opts = {
-      key: "rzp_test_Sum2e7duEe7noS",
+      key: "rzp_test_SwpeFo3M2LnrNY",
       amount: Math.round(amount * 100),
       currency: "INR",
       name: "Campus Connect",
@@ -101,8 +101,8 @@ export function PaymentSelector({
       handler: (r: any) => onSuccess(r.razorpay_payment_id),
       prefill: {
         name: prefillName || "Student User",
-        email: prefillEmail || "student@example.com",
-        contact: prefillPhone || "9999999999",
+        email: prefillEmail || "NISCHAL@GMAIL.com",
+        contact: prefillPhone || "6362206366",
       },
       method: { card: true, netbanking: true, wallet: true, upi: true },
       theme: { color: "#0f766e" },
@@ -224,11 +224,10 @@ export function PaymentSelector({
               key={t}
               type="button"
               onClick={() => setTab(t)}
-              className={`flex-1 py-3 text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-                tab === t
-                  ? "text-teal-600 border-b-2 border-teal-600 bg-teal-50/60 dark:bg-teal-900/10"
-                  : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-              }`}
+              className={`flex-1 py-3 text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${tab === t
+                ? "text-teal-600 border-b-2 border-teal-600 bg-teal-50/60 dark:bg-teal-900/10"
+                : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                }`}
             >
               {t === "upi" ? (
                 <>
@@ -295,11 +294,10 @@ export function PaymentSelector({
             {/* UPI ID input */}
             <div className="space-y-2">
               <div
-                className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 transition-all ${
-                  upiError
-                    ? "border-red-400 bg-red-50 dark:bg-red-900/10"
-                    : "border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus-within:border-teal-400 focus-within:bg-white dark:focus-within:bg-zinc-700"
-                }`}
+                className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 transition-all ${upiError
+                  ? "border-red-400 bg-red-50 dark:bg-red-900/10"
+                  : "border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus-within:border-teal-400 focus-within:bg-white dark:focus-within:bg-zinc-700"
+                  }`}
               >
                 <Smartphone size={16} className="text-gray-400 shrink-0" />
                 <input

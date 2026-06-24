@@ -266,11 +266,10 @@ function XeroxView({ onBack }: { onBack: () => void }) {
                   key={m}
                   type="button"
                   onClick={() => setColorMode(m)}
-                  className={`flex-1 py-2 text-sm font-semibold rounded-xl border transition-smooth ${
-                    colorMode === m
+                  className={`flex-1 py-2 text-sm font-semibold rounded-xl border transition-smooth ${colorMode === m
                       ? "bg-primary text-primary-foreground border-primary"
                       : "bg-card text-muted-foreground border-border hover:border-primary/50"
-                  }`}
+                    }`}
                   data-ocid={`xerox.color_mode_${m}`}
                 >
                   {m === "bw" ? "B&W · ₹1/pg" : "Color · ₹5/pg"}
@@ -295,11 +294,10 @@ function XeroxView({ onBack }: { onBack: () => void }) {
                   key={b}
                   type="button"
                   onClick={() => setBinding(b)}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition-smooth ${
-                    binding === b
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition-smooth ${binding === b
                       ? "bg-primary text-primary-foreground border-primary"
                       : "bg-card text-muted-foreground border-border hover:border-primary/50"
-                  }`}
+                    }`}
                   data-ocid={`xerox.binding_${b}`}
                 >
                   {label}

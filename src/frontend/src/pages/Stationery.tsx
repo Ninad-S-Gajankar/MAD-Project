@@ -142,7 +142,7 @@ export default function Stationery({ onBack }: Props) {
       );
       if (match) {
         setHighlightedId(match.id);
-        
+
         // Scroll into view
         setTimeout(() => {
           const el = document.getElementById(`product-card-${match.id}`);
@@ -312,11 +312,10 @@ export default function Stationery({ onBack }: Props) {
               key={chip}
               type="button"
               onClick={() => setActiveFilter(chip)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full border whitespace-nowrap transition-smooth ${
-                activeFilter === chip
+              className={`px-3 py-1.5 text-xs font-semibold rounded-full border whitespace-nowrap transition-smooth ${activeFilter === chip
                   ? "bg-green-600 text-white border-green-600"
                   : "bg-card text-muted-foreground border-border hover:border-green-400"
-              }`}
+                }`}
               data-ocid={`stationery.filter_${chip.toLowerCase().replace(/\s+/g, "_")}`}
             >
               {chip}

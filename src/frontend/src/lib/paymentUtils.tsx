@@ -20,7 +20,7 @@ export function triggerRazorpayPayment(options: TriggerPaymentOptions) {
   }
 
   const opts = {
-    key: "rzp_test_Sum2e7duEe7noS",
+    key: "rzp_test_SwpeFo3M2LnrNY",
     amount: Math.round(options.amount * 100), // in paise
     currency: "INR",
     name: "Campus Connect",
@@ -29,9 +29,9 @@ export function triggerRazorpayPayment(options: TriggerPaymentOptions) {
       options.onSuccess(response.razorpay_payment_id);
     },
     prefill: {
-      name: options.prefillName || "Student User",
-      email: options.prefillEmail || "student@example.com",
-      contact: options.prefillPhone || "9999999999",
+      name: options.prefillName || "Nischal",
+      email: options.prefillEmail || "nischal@gmail.com",
+      contact: options.prefillPhone || "6362206366",
     },
     method: {
       card: true,

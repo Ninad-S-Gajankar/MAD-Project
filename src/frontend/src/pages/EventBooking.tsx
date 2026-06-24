@@ -791,8 +791,8 @@ export default function EventBooking() {
         <div className="flex p-1 bg-gray-200/50 rounded-xl mb-4">
           <button
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${activeTab === "all"
-                ? "bg-white text-primary shadow-sm"
-                : "text-gray-500"
+              ? "bg-white text-primary shadow-sm"
+              : "text-gray-500"
               }`}
             onClick={() => setActiveTab("all")}
           >
@@ -800,8 +800,8 @@ export default function EventBooking() {
           </button>
           <button
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${activeTab === "history"
-                ? "bg-white text-primary shadow-sm"
-                : "text-gray-500"
+              ? "bg-white text-primary shadow-sm"
+              : "text-gray-500"
               }`}
             onClick={() => setActiveTab("history")}
           >
@@ -809,8 +809,8 @@ export default function EventBooking() {
           </button>
           <button
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${activeTab === "discussion"
-                ? "bg-white text-primary shadow-sm"
-                : "text-gray-500"
+              ? "bg-white text-primary shadow-sm"
+              : "text-gray-500"
               }`}
             onClick={() => setActiveTab("discussion")}
           >
@@ -918,8 +918,8 @@ export default function EventBooking() {
                         </span>
                         <div
                           className={`px-3.5 py-2 rounded-2xl text-xs font-medium leading-relaxed shadow-sm ${msg.userId === auth.currentUser?.uid
-                              ? "bg-primary text-white rounded-tr-none"
-                              : "bg-gray-100 text-gray-800 rounded-tl-none"
+                            ? "bg-primary text-white rounded-tr-none"
+                            : "bg-gray-100 text-gray-800 rounded-tl-none"
                             }`}
                         >
                           {msg.message}

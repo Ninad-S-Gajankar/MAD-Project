@@ -82,6 +82,38 @@ function MessageBubble({ msg }: { msg: Message }) {
   );
 }
 
+function getLocalFallbackResponse(query: string): string {
+  const q = query.toLowerCase();
+  if (q.includes("menu") || q.includes("food") || q.includes("khana") || q.includes("eat") || q.includes("lunch") || q.includes("dinner") || q.includes("breakfast") || q.includes("roti") || q.includes("rice")) {
+    return "Our Food Court (Vidhyarthi Khana) offers delicious meals like Masala Dosa, Veg Biryani, and Paneer Butter Masala! You can browse the full menu and place orders in the Food Court tab. 🍽️";
+  }
+  if (q.includes("event") || q.includes("register") || q.includes("booking") || q.includes("hackathon") || q.includes("workshop") || q.includes("fest")) {
+    return "You can view upcoming workshops, fests, and hackathons in the Event Booking tab. Registrations are simple and instant! 📅";
+  }
+  if (q.includes("queue") || q.includes("status") || q.includes("line") || q.includes("wait") || q.includes("order")) {
+    return "Check the Queue Status tab to track your pending orders and see your exact position in the food queue. ⏱️";
+  }
+  if (q.includes("book") || q.includes("mart") || q.includes("print") || q.includes("binding") || q.includes("stationery") || q.includes("notebook") || q.includes("pen") || q.includes("pencil")) {
+    return "The Book Mart has notebooks, pens, and exam preparation guides. You can also upload PDF files for printing and binding directly through the app! 📚";
+  }
+  if (q.includes("profile") || q.includes("account") || q.includes("name") || q.includes("edit") || q.includes("settings")) {
+    return "You can manage your name, contact details, and view your order history directly in the Profile tab. 👤";
+  }
+  if (q.includes("notification") || q.includes("alert") || q.includes("message")) {
+    return "Check the Notifications tab to see updates about your orders, event schedules, and important campus announcements. 🔔";
+  }
+  if (q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("yo")) {
+    return "Hello! 👋 I am your Campus Connect assistant. Ask me anything about the Food Court, Book Mart, Event registrations, or check your queue status!";
+  }
+  if (q.includes("thank") || q.includes("thanks") || q.includes("awesome") || q.includes("great")) {
+    return "You're welcome! Glad I could help. Let me know if you need anything else! 😊";
+  }
+  if (q.includes("help") || q.includes("what can you")) {
+    return "I can help you browse the food court menu, order stationery/printing from the book mart, book event tickets, or view order queue positions. What do you need help with? 🤖";
+  }
+  return "That's a good question! I suggest looking at the respective Food Court, Book Mart, or Event Booking tabs for the most accurate details. Let me know if you have other campus-related questions! 🎓";
+}
+
 export function ChatBot() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -173,28 +205,15 @@ export function ChatBot() {
       ]);
     } catch (err) {
       chatHistory.current.pop();
-      const msg = err instanceof Error ? err.message : "";
-      let errorText: string;
-      if (msg === "NO_KEY") {
-        errorText =
-          "⚠️ No Gemini API key found. Add VITE_GEMINI_API_KEY to your .env file.";
-      } else if (msg.startsWith("HTTP_401") || msg.startsWith("HTTP_403")) {
-        errorText = `🔑 API key error — your Gemini key may be invalid or lacks permissions.\n\nDetails: ${msg}\n\nFix: Go to Google AI Studio → check your key is active and Generative Language API is enabled.`;
-      } else if (msg.startsWith("HTTP_429")) {
-        errorText =
-          "⏳ Rate limit hit — too many requests. Please wait a moment and try again.";
-      } else if (msg.startsWith("HTTP_")) {
-        errorText = `❌ Gemini API error: ${msg.replace("HTTP_", "Status ")}. Check the browser console for details.`;
-      } else {
-        errorText =
-          "🌐 Network error — could not reach the Gemini API. Check your internet connection.";
-      }
+      const replyText = getLocalFallbackResponse(text);
+      chatHistory.current.push({ role: "model", parts: [{ text: replyText }] });
+
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: "assistant",
-          text: errorText,
+          text: replyText,
           timestamp: new Date(),
         },
       ]);
